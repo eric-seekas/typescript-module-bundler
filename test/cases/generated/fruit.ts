@@ -3,7 +3,8 @@
 interface Banana {
 	color: Fruit.Color;
 	isPeeled: boolean;
-}module Fruit {
+}
+module Fruit {
 
 	export enum Color {
 		GREEN,

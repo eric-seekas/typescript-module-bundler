@@ -9,7 +9,7 @@ context('given sources include global code', () => {
             var subject = new TsBundler();
             subject.add('source1', 'alert("before1"); module FooBar {} alert("after1");');
             subject.add('source2', 'alert("before2"); module FooBar {} alert("after2");');
-            result = subject.createBundles().find(x => x.name == 'FooBar');
+            result = subject.createBundle('FooBar');
         });
 
         it('then includes the global code for each module', () => {
@@ -28,7 +28,7 @@ context('given sources include global code', () => {
             subject.add('source1', 'alert("same"); module FooBar {}');
             subject.add('source2', 'alert("same"); module FooBar {}');
             subject.add('source3', 'alert("notthesame"); module FooBar {}');
-            result = subject.createBundles().find(x => x.name == 'FooBar');
+            result = subject.createBundle('FooBar');
         });
 
         it('then removes any duplicate global code that could cause typescript errors', () => {
@@ -51,6 +51,5 @@ context('given sources include global code', () => {
             });
         });
     });
-
 
 });

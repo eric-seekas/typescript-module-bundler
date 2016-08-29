@@ -57,15 +57,19 @@ Example results after files have been piped through TsModuleBundler then transpi
 
 ## API
 
-#### new TsModuleBundler()
+#### new TsModuleBundler(generateSourceMap)
 Initialize a new module bundler object.
 
-#### add(filePath, content)
+Parameters:
+- generateSourceMap: flag to generate source-maps for each bundle
+
+#### add(filePath, content, sourceMap)
 Adds source containing modules to later bundle.
 
 Parameters:
 - filePath: file path of the input file
 - content: content (Buffer or string) of the input file
+- sourceMap: optional parameter to pass files source-map
 
 #### listModules()
 Returns a list of module names found in any of the added sources.
@@ -76,6 +80,7 @@ Returns a single bundle for that module.
 Bundle:
 - name: name of the module
 - contents: combined body of modules
+- sourceMap: generated source-mappings for contents
 - sources: list of sources used to create this bundle 
 
 #### createBundles()
