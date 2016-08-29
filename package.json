@@ -1,6 +1,6 @@
 {
   "name": "typescript-module-bundler",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Combines Typescript Modules",
   "keywords": ["typescript", "merge", "modules", "bundle", "combine"],
   "main": "src/index.js",
@@ -8,6 +8,10 @@
     "test": "mocha --ui bdd test/**/*.spec.js"
   },
   "author": "techmatt101",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techmatt101/typescript-module-bundler"
+  },
   "license": "MIT",
   "dependencies": {
     "typescript": "*",
