@@ -4,7 +4,7 @@ const SourceMapGenerator = require('source-map').SourceMapGenerator;
 const SourceMapConsumer = require('source-map').SourceMapConsumer;
 
 context('given a source map with mappings is included', () => {
-    describe('when bundling modules', () => {
+    describe('when bundling module', () => {
         var result;
         var source = `module FooBar {
                 class HelloWorld {

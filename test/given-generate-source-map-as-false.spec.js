@@ -2,7 +2,7 @@ const assert = require('assert');
 const TsBundler = require('../src/index');
 
 context('given generate source map as false', () => {
-    describe('when bundling modules', () => {
+    describe('when bundling module', () => {
         var result;
 
         before(() => {

@@ -2,7 +2,7 @@ const assert = require('assert');
 const TsBundler = require('../src/index');
 
 context('given sources include global code', () => {
-    describe('when bundling modules', () => {
+    describe('when bundling module', () => {
         var result;
 
         before(() => {
@@ -21,33 +21,37 @@ context('given sources include global code', () => {
     });
 
     context('with lines of the same code used in other sources', () => {
-        var result;
+        describe('when bundling module', () => {
+            var result;
 
-        before(() => {
-            var subject = new TsBundler();
-            subject.add('source1', 'alert("same"); module FooBar {}');
-            subject.add('source2', 'alert("same"); module FooBar {}');
-            subject.add('source3', 'alert("notthesame"); module FooBar {}');
-            result = subject.createBundle('FooBar');
-        });
+            before(() => {
+                var subject = new TsBundler();
+                subject.add('source1', 'alert("same"); module FooBar {}');
+                subject.add('source2', 'alert("same"); module FooBar {}');
+                subject.add('source3', 'alert("notthesame"); module FooBar {}');
+                result = subject.createBundle('FooBar');
+            });
 
-        it('then removes any duplicate global code that could cause typescript errors', () => {
-            assert.equal(result.content.match(/alert\("same"\);/g).length, 1, 'Failed to remove duplicate global code.');
+            it('then removes any duplicate global code that could cause typescript errors', () => {
+                assert.equal(result.content.match(/alert\("same"\);/g).length, 1, 'Failed to remove duplicate global code.');
+            });
         });
     });
 
     context('with sources containing multiple modules', () => {
-        var result;
+        describe('when bundling modules', () => {
+            var result;
 
-        before(() => {
-            var subject = new TsBundler();
-            subject.add('source1', 'alert("hello"); module FooBar {} module Test {} module Example {}');
-            result = subject.createBundles();
-        });
+            before(() => {
+                var subject = new TsBundler();
+                subject.add('source1', 'alert("hello"); module FooBar {} module Test {} module Example {}');
+                result = subject.createBundles();
+            });
 
-        it('then includes the global code for each module', () => {
-            result.forEach(bundle => {
-                assert(bundle.content.includes('alert("hello");'), 'Failed to include global code for each module.');
+            it('then includes the global code for each module', () => {
+                result.forEach(bundle => {
+                    assert(bundle.content.includes('alert("hello");'), 'Failed to include global code for each module.');
+                });
             });
         });
     });
