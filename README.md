@@ -76,13 +76,13 @@ Example results after files have been piped through TsModuleBundler then transpi
 
 ## API
 
-#### new TsModuleBundler(generateSourceMap)
+#### new TsModuleBundler(generateSourceMap?)
 Initialize a new module bundler object.
 
 Parameters:
 - generateSourceMap: flag to generate source-maps for each bundle
 
-#### add(filePath, content, sourceMap)
+#### add(filePath, content, sourceMap?)
 Adds source containing modules to later bundle.
 
 Parameters:
@@ -93,8 +93,16 @@ Parameters:
 #### listModules()
 Returns a list of module names found in any of the added sources.
 
-#### createBundle(moduleName)
+#### createBundle(moduleName, moduleOutput?)
 Returns a single bundle for that module.
+
+Parameters:
+- moduleName: name of module found in sources to bundle
+- moduleOutput: optional string parameter to set module output.
+    - 'enclosed' (default): wraps the module contents in a module enclosure. 
+    - 'export': wraps the module contents in a exported module enclosure.
+    - 'traditionalExport': wraps the module contents in a module enclosure and exports module for traditional CommonJS and AMD workflow.
+    - 'es6' / 'none': does not wrap the module contents.
 
 Bundle:
 - name: name of the module
@@ -102,5 +110,5 @@ Bundle:
 - sourceMap: generated source-mappings for contents
 - sources: list of sources used to create this bundle 
 
-#### createBundles()
+#### createBundles(moduleOutput)
 Returns list of all module bundles found in provided sources.

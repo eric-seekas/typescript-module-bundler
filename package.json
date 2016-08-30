@@ -1,6 +1,6 @@
 {
   "name": "typescript-module-bundler",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Combines Typescript Modules",
   "keywords": ["typescript", "merge", "modules", "bundle", "combine"],
   "main": "src/index.js",
