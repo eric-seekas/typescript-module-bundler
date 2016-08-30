@@ -136,8 +136,13 @@ class TsModuleBundler {
         var moduleBody = module.contents.map(x => x.text).join('\n');
         var output;
 
-        switch(moduleOutput) {
+        switch(moduleOutput && moduleOutput.toLowerCase()) {
             case 'export':
+                output = `${moduleGlobals}export module ${moduleName} {${moduleBody}}`;
+                break;
+
+            case 'traditionalexport':
+            case 'commonjsexport':
                 output = `${moduleGlobals}module ${moduleName} {${moduleBody}} export = ${moduleName};`;
                 break;
 
@@ -147,7 +152,6 @@ class TsModuleBundler {
                 break;
 
             case 'enclosed':
-            case 'wrapped':
             default:
                 output = `${moduleGlobals}module ${moduleName} {${moduleBody}}`;
                 break;

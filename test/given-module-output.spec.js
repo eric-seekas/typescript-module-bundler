@@ -46,6 +46,22 @@ context('given module output', () => {
             });
 
             it('then does not include source-map in bundle', () => {
+                assert.equal(result.content, 'export module FooBar {class Apple {}}');
+            });
+        });
+    });
+
+    context('passed as traditional export', () => {
+        describe('when bundling module', () => {
+            var result;
+
+            before(() => {
+                var subject = new TsBundler();
+                subject.add('source', 'module FooBar {class Apple {} }');
+                result = subject.createBundle('FooBar', 'traditionalExport');
+            });
+
+            it('then does not include source-map in bundle', () => {
                 assert.equal(result.content, 'module FooBar {class Apple {}} export = FooBar;');
             });
         });
