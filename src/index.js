@@ -108,7 +108,7 @@ class TsModuleBundler {
         return Object.keys(this._modules);
     }
 
-    createBundle(moduleName) {
+    createBundle(moduleName, moduleOutput) {
         var module = this._modules[moduleName];
 
         if(module == undefined) {
@@ -134,8 +134,24 @@ class TsModuleBundler {
             moduleGlobals += '\n';
         }
         var moduleBody = module.contents.map(x => x.text).join('\n');
+        var output;
 
-        var output = `${moduleGlobals}module ${moduleName} {${moduleBody}}`;
+        switch(moduleOutput) {
+            case 'export':
+                output = `${moduleGlobals}module ${moduleName} {${moduleBody}} export = ${moduleName};`;
+                break;
+
+            case 'es6':
+            case 'none':
+                output = `${moduleGlobals}${moduleBody}`;
+                break;
+
+            case 'enclosed':
+            case 'wrapped':
+            default:
+                output = `${moduleGlobals}module ${moduleName} {${moduleBody}}`;
+                break;
+        }
 
         return {
             name: moduleName,
@@ -153,9 +169,9 @@ class TsModuleBundler {
         };
     }
 
-    createBundles() {
+    createBundles(moduleOutput) {
         return this.listModules()
-            .map(moduleName => this.createBundle(moduleName));
+            .map(moduleName => this.createBundle(moduleName, moduleOutput));
     }
 }
 
