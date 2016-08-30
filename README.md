@@ -3,13 +3,10 @@
 A pre-processor tool used to combine TypeScript modules that have been split across multiple files. 
 
 ## Motivation
-The aim of the project is to help improve code organization in projects that wish to use modules namespaces to encapsulation units of code.
-The current work flow forces projects to contain entire logic of each module in a single file which can have negative effect on readability as the module grows.
-Solutions such as combining TypeScript files often result in complex build tools to fish out the right files to combine and also run into many other issues dealing with duplicate global code such as module imports.
-Another side effect of simply combing module files is that TypeScript will still count each module enclosure as separate, wrapping each of them in there own nest of IIFEs, [doc/example-nested-side-effect.js](doc/example-nested-side-effect.js) is a good example of that.
+The aim of the project is to help improve code organisation in projects that wish to use module namespaces to encapsulation units of code. The current workflow forces TypeScript projects to contain the entire logic of each module in a single file. This can have negative effects on readability as the module grows. Solutions such as combining TypeScript files often result in complex build tools in order to fish out the right files to combine. A side effect of this is duplicate global code, such as module imports. Another byproduct of simply combining module files is that TypeScript will still count each module enclosure as a separate entity, wrapping each of them in their own nest of IIFEs, [doc/example-nested-side-effect.js](doc/example-nested-side-effect.js) is a good example of that.
 
 ## How does it work?
-Simply put, it takes the body of each module then combines all the same modules to together wrapping the code in a single module wrap. It also ensures the global code from each module file is also included and removing any duplicate code that could cause any build errors.
+Simply put, it takes the body of each module then combines all the code for the modules together, wrapping the code in a single module wrap. It also ensures the global code from each module file is also included, removing any duplicate code that could cause any build errors.
 
 ## Examples
 
@@ -83,7 +80,7 @@ Parameters:
 - generateSourceMap: flag to generate source-maps for each bundle
 
 #### add(filePath, content, sourceMap?)
-Adds source containing modules to later bundle.
+Adds a file containing modules to later bundle.
 
 Parameters:
 - filePath: file path of the input file
@@ -91,7 +88,7 @@ Parameters:
 - sourceMap: optional parameter to pass files source-map
 
 #### listModules()
-Returns a list of module names found in any of the added sources.
+Returns a list of module names found in any of the added files.
 
 #### createBundle(moduleName, moduleOutput?)
 Returns a single bundle for that module.
@@ -108,7 +105,7 @@ Bundle:
 - name: name of the module
 - contents: combined body of modules
 - sourceMap: generated source-mappings for contents
-- sources: list of sources used to create this bundle 
+- sources: list of files used to create this bundle 
 
-#### createBundles(moduleOutput)
-Returns list of all module bundles found in provided sources.
+#### createBundles(moduleOutput?)
+Returns list of all module bundles found in provided files.
