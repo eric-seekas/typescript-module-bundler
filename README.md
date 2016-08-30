@@ -41,6 +41,25 @@ var bundles = tsBundler.createBundles();
 */
 ```
 
+### Build tool example using the [Gulp Plugin](https://github.com/techmatt101/gulp-typescript-module-bundler)
+```js
+const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const ts = require('gulp-typescript');
+const tsModuleBundler = require('gulp-typescript-module-bundler');
+
+gulp.task('scripts', () => {
+    return gulp.src('src/*.ts')
+        .pipe(sourcemaps.init())
+        .pipe(tsModuleBundler())
+        .pipe(ts({
+            module: 'commonjs'
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('dist'));
+});
+```
+
 ### Output Example
 Example results after files have been piped through TsModuleBundler then transpiled by TypeScript.
 ```
