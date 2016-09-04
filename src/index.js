@@ -12,7 +12,7 @@ class TsModuleBundler {
 
     add(filePath, content, sourceMap) {
         var sourceNode = ts.createSourceFile(filePath, content.toString(), ts.ScriptTarget.ES6, true);
-        var nodes = sourceNode.getChildren()[0].getChildren();
+        var nodes = sourceNode.getChildren().find(x => x.kind === ts.SyntaxKind.SyntaxList).getChildren();
 
         var globals = nodes
             .filter(node => node.kind !== ts.SyntaxKind.ModuleDeclaration)
@@ -20,7 +20,7 @@ class TsModuleBundler {
 
         nodes.filter(node => node.kind === ts.SyntaxKind.ModuleDeclaration)
             .forEach(node => {
-                var innerNode = node.body.getChildren()[1];
+                var innerNode = node.body.getChildren().find(x => x.kind === ts.SyntaxKind.SyntaxList);
                 if(!innerNode) return;
                 var module = this._fetchModule(node.name.text);
 
