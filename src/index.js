@@ -25,7 +25,7 @@ class TsModuleBundler {
                 var module = this._fetchModule(node.name.text);
 
                 for(var global of globals) {
-                    if (!module.globals.some(x => global.text === x.text)) {
+                    if (!module.globals.some(x => global.text.trim() === x.text.trim())) {
                         module.globals.push(global);
                     }
                 }
